@@ -1,0 +1,4936 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NIKH'S STORE</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+--bg:#f5f7fa;
+--card:#fff;
+--text:#111318;
+--muted:#737983;
+--line:#e7e9ed;
+--black:#111;
+--green:#16a34a;
+--red:#dc2626;
+--blue:#2563eb;
+--orange:#f59e0b;
+--shadow:0 12px 35px rgba(17,24,39,.07)
+}
+
+body{
+font-family:Inter,Segoe UI,Arial,sans-serif;
+background:
+radial-gradient(circle at 0 0,#e0edff 0,transparent 25%),
+radial-gradient(circle at 100% 0,#eee8ff 0,transparent 24%),
+var(--bg);
+color:var(--text);
+min-height:100vh
+}
+
+button,input,select{font:inherit}
+button{cursor:pointer}
+button:disabled{cursor:not-allowed!important}
+
+.app{display:flex;min-height:100vh}
+
+.sidebar{
+width:245px;
+position:fixed;
+left:0;
+top:0;
+bottom:0;
+background:#0d0e10;
+color:#fff;
+padding:22px 14px;
+z-index:20
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:11px;
+padding:5px 9px 28px
+}
+
+.logo-icon{
+width:42px;
+height:42px;
+border-radius:13px;
+background:#fff;
+color:#111;
+display:grid;
+place-items:center;
+font-size:23px
+}
+
+.logo b{font-size:14px}
+
+.logo small{
+display:block;
+color:#777d87;
+font-size:9px;
+margin-top:3px
+}
+
+.nav-title{
+font-size:9px;
+color:#626873;
+letter-spacing:1.5px;
+padding:12px 11px 7px
+}
+
+.nav{
+width:100%;
+border:0;
+background:transparent;
+color:#aeb3bc;
+display:flex;
+align-items:center;
+gap:11px;
+padding:11px;
+border-radius:10px;
+margin:3px 0;
+text-align:left;
+transition:.2s
+}
+
+.nav:hover,.nav.active{
+color:#fff;
+background:#1b1e23
+}
+
+.nav-icon{width:19px;text-align:center}
+
+.sidebar-status{
+position:absolute;
+left:17px;
+right:17px;
+bottom:18px;
+padding:14px;
+border:1px solid #272a2f;
+border-radius:13px;
+background:#15171a
+}
+
+.status-top{
+display:flex;
+justify-content:space-between;
+font-size:10px;
+color:#858b94
+}
+
+.status-dot{
+width:8px;
+height:8px;
+border-radius:50%;
+background:#ef4444
+}
+
+.status-dot.on{
+background:#22c55e;
+box-shadow:0 0 12px #22c55e
+}
+
+.status-text{
+font-size:10px;
+color:#777e88;
+margin-top:7px
+}
+
+.main{
+margin-left:245px;
+width:calc(100% - 245px);
+padding:25px 30px 50px
+}
+
+.topbar{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:20px
+}
+
+.page-title h1{
+font-size:28px;
+letter-spacing:-1px
+}
+
+.page-title p{
+color:var(--muted);
+font-size:12px;
+margin-top:5px
+}
+
+.top-actions{
+display:flex;
+align-items:center;
+gap:8px
+}
+
+.date-badge{
+background:#fff;
+border:1px solid var(--line);
+border-radius:11px;
+padding:10px 13px;
+font-size:11px
+}
+
+.btn{
+border:0;
+border-radius:10px;
+padding:10px 14px;
+font-size:11px;
+font-weight:700;
+transition:.2s
+}
+
+.btn:hover:not(:disabled){transform:translateY(-1px)}
+
+.btn-black{background:#111;color:#fff}
+.btn-blue{background:#2563eb;color:#fff}
+.btn-green{background:#16a34a;color:#fff}
+.btn-red{background:#fee2e2;color:#b91c1c}
+.btn-light{background:#f3f4f6;color:#111}
+
+.hero{
+min-height:180px;
+background:linear-gradient(120deg,#0c0d0f,#292d33);
+border-radius:22px;
+padding:26px;
+color:#fff;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:relative;
+overflow:hidden;
+box-shadow:0 20px 45px rgba(0,0,0,.13);
+margin-bottom:18px
+}
+
+.hero:before{
+content:"";
+position:absolute;
+width:350px;
+height:350px;
+border-radius:50%;
+right:-120px;
+top:-180px;
+background:#fff;
+opacity:.04
+}
+
+.hero h2,.hero p,.hero-info{position:relative}
+
+.hero h2{font-size:25px}
+
+.hero p{
+color:#9da3ac;
+font-size:11px;
+margin-top:5px
+}
+
+.hero-info{
+display:flex;
+align-items:center;
+gap:8px;
+margin-top:17px;
+font-size:11px
+}
+
+.hero-dot{
+width:8px;
+height:8px;
+border-radius:50%;
+background:#ef4444
+}
+
+.hero-dot.on{
+background:#22c55e;
+box-shadow:0 0 13px #22c55e
+}
+
+.store-switch{
+width:95px;
+height:48px;
+border:0;
+border-radius:40px;
+background:#383c42;
+padding:5px;
+position:relative;
+z-index:2
+}
+
+.store-switch span{
+display:block;
+width:38px;
+height:38px;
+background:#fff;
+border-radius:50%;
+transition:.3s
+}
+
+.store-switch.on{background:#16a34a}
+.store-switch.on span{transform:translateX(47px)}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(6,1fr);
+gap:12px;
+margin-bottom:18px
+}
+
+.stat{
+background:#fff;
+border:1px solid var(--line);
+border-radius:16px;
+padding:16px;
+box-shadow:var(--shadow)
+}
+
+.stat small{color:#858b95;font-size:9px}
+
+.stat h3{
+margin-top:7px;
+font-size:20px;
+letter-spacing:-.5px
+}
+
+.stat p{
+margin-top:5px;
+color:#16a34a;
+font-size:9px
+}
+
+.grid{
+display:grid;
+grid-template-columns:1.3fr .7fr;
+gap:17px;
+margin-bottom:18px
+}
+
+.card{
+background:#fff;
+border:1px solid var(--line);
+border-radius:17px;
+padding:19px;
+box-shadow:var(--shadow);
+margin-bottom:18px
+}
+
+.grid .card{margin-bottom:0}
+
+.card-head{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:17px
+}
+
+.card-head h3{font-size:15px}
+
+.card-head p{
+font-size:10px;
+color:var(--muted);
+margin-top:4px
+}
+
+.live-feed{
+height:280px;
+overflow:auto
+}
+
+.live-sale{
+display:flex;
+align-items:center;
+gap:10px;
+padding:10px;
+border:1px solid #eef0f3;
+border-radius:11px;
+margin-bottom:7px;
+animation:slide .15s ease
+}
+
+.sale-image{
+width:42px;
+height:42px;
+object-fit:cover;
+border-radius:10px;
+background:#f1f3f5
+}
+
+.sale-info{flex:1}
+
+.sale-info b{
+display:block;
+font-size:11px
+}
+
+.sale-info small{
+color:var(--muted);
+font-size:9px
+}
+
+.sale-money{
+color:#16a34a;
+font-size:11px;
+font-weight:700
+}
+
+.overview-row{
+display:flex;
+justify-content:space-between;
+padding:12px 0;
+border-bottom:1px solid #f0f1f3
+}
+
+.overview-row:last-child{border:0}
+
+.overview-row span{
+color:var(--muted);
+font-size:10px
+}
+
+.overview-row b{font-size:11px}
+
+.form-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:11px
+}
+
+.field label{
+display:block;
+font-size:10px;
+color:var(--muted);
+margin-bottom:5px
+}
+
+.field input,.field select{
+width:100%;
+padding:11px;
+border:1px solid var(--line);
+border-radius:9px;
+outline:none;
+background:#fafafa
+}
+
+.field input:focus,.field select:focus{
+border-color:#111;
+background:#fff
+}
+
+.full{grid-column:1/-1}
+
+.image-preview{
+height:130px;
+border:1px dashed #ccd1d8;
+border-radius:12px;
+background:#fafafa;
+color:#9ca3af;
+display:grid;
+place-items:center;
+overflow:hidden;
+font-size:10px
+}
+
+.image-preview img{
+width:100%;
+height:100%;
+object-fit:contain
+}
+
+.form-bottom{
+display:flex;
+justify-content:flex-end;
+grid-column:1/-1
+}
+
+.product-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:13px
+}
+
+.product-card{
+border:1px solid var(--line);
+border-radius:14px;
+overflow:hidden;
+background:#fff;
+transition:.2s
+}
+
+.product-card:hover{
+transform:translateY(-3px);
+box-shadow:0 15px 30px #11182710
+}
+
+.product-image{
+width:100%;
+height:155px;
+object-fit:cover;
+background:#f3f4f6
+}
+
+.product-body{padding:13px}
+
+.product-name{
+font-size:13px;
+font-weight:700
+}
+
+.product-category{
+color:var(--muted);
+font-size:9px;
+margin-top:3px
+}
+
+.product-prices{
+display:flex;
+justify-content:space-between;
+margin-top:13px
+}
+
+.product-prices div span{
+display:block;
+color:var(--muted);
+font-size:8px
+}
+
+.product-prices div b{
+font-size:11px;
+display:block;
+margin-top:3px
+}
+
+.product-stock{
+background:#f7f8fa;
+border-radius:9px;
+padding:9px;
+display:flex;
+justify-content:space-between;
+margin-top:11px;
+font-size:10px
+}
+
+.product-profit{
+margin-top:9px;
+font-size:9px;
+color:var(--muted)
+}
+
+.product-actions{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:6px;
+margin-top:10px
+}
+
+.product-actions button{
+border:0;
+padding:8px;
+border-radius:8px;
+font-size:9px;
+font-weight:700
+}
+
+.purchase-box{
+display:grid;
+grid-template-columns:1.5fr 1fr auto;
+gap:10px;
+align-items:end
+}
+
+.purchase-summary{
+margin-bottom:13px;
+padding:13px;
+background:#f7f8fa;
+border-radius:11px
+}
+
+.purchase-summary b{
+font-size:12px;
+display:block
+}
+
+.purchase-summary span{
+display:block;
+color:var(--muted);
+font-size:9px;
+margin-top:4px;
+line-height:1.6
+}
+
+.affordable-info{
+margin-top:8px;
+padding:9px 11px;
+border-radius:9px;
+background:#ecfdf5;
+color:#15803d;
+font-size:10px;
+font-weight:700
+}
+
+.affordable-info.warning{
+background:#fef2f2;
+color:#b91c1c
+}
+
+.employee-form{
+display:grid;
+grid-template-columns:1.3fr 1fr 1fr auto;
+gap:9px;
+margin-bottom:15px
+}
+
+.employee-form input,.employee-form select{
+padding:10px;
+border:1px solid var(--line);
+border-radius:9px;
+outline:0
+}
+
+.employee{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:11px;
+border:1px solid #edf0f3;
+border-radius:11px;
+margin-bottom:7px
+}
+
+.employee-left{
+display:flex;
+align-items:center;
+gap:10px
+}
+
+.avatar{
+width:38px;
+height:38px;
+border-radius:11px;
+background:#111;
+color:#fff;
+display:grid;
+place-items:center;
+font-weight:700
+}
+
+.employee-name{
+font-size:11px;
+font-weight:700
+}
+
+.employee-role{
+color:var(--muted);
+font-size:9px;
+margin-top:2px
+}
+
+.employee-salary{
+font-size:11px;
+font-weight:700
+}
+
+.employee-actions{
+display:flex;
+align-items:center;
+gap:7px
+}
+
+.salary-status{
+font-size:9px;
+color:#16a34a;
+font-weight:700;
+margin-top:3px
+}
+
+.month-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:11px;
+margin-bottom:14px
+}
+
+.month-card{
+background:#f7f8fa;
+border-radius:12px;
+padding:13px
+}
+
+.month-card small{
+color:var(--muted);
+font-size:9px
+}
+
+.month-card b{
+display:block;
+margin-top:5px;
+font-size:15px
+}
+
+.cash-panel{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px
+}
+
+.cash-main{
+background:linear-gradient(135deg,#111318,#272b31);
+color:#fff;
+border-radius:15px;
+padding:20px
+}
+
+.cash-main small{
+color:#969da7;
+font-size:9px
+}
+
+.cash-main h2{
+margin-top:5px;
+font-size:29px
+}
+
+.withdraw-box{
+display:flex;
+gap:8px;
+margin-top:15px
+}
+
+.withdraw-box input{
+flex:1;
+padding:11px;
+border-radius:9px;
+border:1px solid #373b42;
+outline:0;
+background:#1b1e23;
+color:#fff
+}
+
+.business-value{
+background:#f7f8fa;
+border-radius:15px;
+padding:20px
+}
+
+.business-value small{
+color:var(--muted);
+font-size:9px
+}
+
+.business-value h2{
+margin-top:5px;
+font-size:26px
+}
+
+.table-wrap{overflow:auto}
+
+table{
+width:100%;
+min-width:750px;
+border-collapse:collapse
+}
+
+th{
+text-align:left;
+padding:10px;
+border-bottom:1px solid var(--line);
+color:#8b919a;
+font-size:9px
+}
+
+td{
+padding:11px 10px;
+border-bottom:1px solid #f0f1f3;
+font-size:10px
+}
+
+.green-text{color:#16a34a;font-weight:700}
+.red-text{color:#dc2626;font-weight:700}
+
+.empty{
+padding:35px;
+text-align:center;
+color:#9ca3af;
+font-size:10px
+}
+
+.toast{
+position:fixed;
+right:22px;
+bottom:22px;
+background:#111318;
+color:#fff;
+padding:12px 16px;
+border-radius:10px;
+font-size:10px;
+z-index:100;
+opacity:0;
+transform:translateY(15px);
+transition:.25s
+}
+
+.toast.show{
+opacity:1;
+transform:translateY(0)
+}
+
+.modal-bg{
+position:fixed;
+inset:0;
+background:#0009;
+backdrop-filter:blur(6px);
+display:none;
+place-items:center;
+z-index:100
+}
+
+.modal-bg.show{display:grid}
+
+.modal{
+width:min(430px,92%);
+background:#fff;
+border-radius:18px;
+padding:22px;
+animation:pop .2s ease
+}
+
+.modal h2{font-size:18px}
+
+.modal p{
+color:var(--muted);
+font-size:10px;
+margin-top:5px;
+line-height:1.6
+}
+
+.modal-buttons{
+display:flex;
+justify-content:flex-end;
+gap:8px;
+margin-top:18px
+}
+
+.month-end-banner{
+margin-bottom:15px;
+padding:12px 14px;
+background:#ecfdf5;
+border:1px solid #bbf7d0;
+color:#15803d;
+border-radius:11px;
+font-size:10px;
+font-weight:700
+}
+
+.month-end-banner.normal{
+background:#f7f8fa;
+border-color:#e5e7eb;
+color:#737983
+}
+
+.pending-banner{
+background:#fff7ed;
+border-color:#fed7aa;
+color:#c2410c
+}
+
+.payroll-banner{
+margin-bottom:15px;
+padding:14px;
+background:#f8fafc;
+border:1px solid #e2e8f0;
+border-radius:12px
+}
+
+.payroll-banner-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+flex-wrap:wrap
+}
+
+.payroll-banner small{
+display:block;
+font-size:9px;
+color:#64748b;
+margin-bottom:4px
+}
+
+.payroll-banner strong{
+font-size:18px
+}
+
+.payroll-exact{
+color:#16a34a;
+font-size:10px;
+font-weight:700
+}
+
+.payroll-warning{
+color:#dc2626;
+font-size:10px;
+font-weight:700
+}
+
+@keyframes slide{
+from{opacity:0;transform:translateX(12px)}
+to{opacity:1;transform:translateX(0)}
+}
+
+@keyframes pop{
+from{opacity:0;transform:scale(.95)}
+to{opacity:1;transform:scale(1)}
+}
+
+@media(max-width:1200px){
+.stats{grid-template-columns:repeat(3,1fr)}
+.product-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:900px){
+.sidebar{width:68px}
+.logo-text,.nav span,.nav-title,.sidebar-status{display:none}
+.logo{justify-content:center}
+.nav{justify-content:center}
+.main{
+margin-left:68px;
+width:calc(100% - 68px);
+padding:15px
+}
+.grid{grid-template-columns:1fr}
+}
+
+@media(max-width:650px){
+.stats{grid-template-columns:1fr 1fr}
+.form-grid,.employee-form,.purchase-box,.cash-panel,.month-grid{
+grid-template-columns:1fr
+}
+.product-grid{grid-template-columns:1fr}
+.hero{
+flex-direction:column;
+align-items:flex-start;
+gap:20px
+}
+.topbar{
+flex-direction:column;
+align-items:flex-start;
+gap:10px
+}
+.employee{
+align-items:flex-start;
+gap:12px;
+flex-direction:column
+}
+.employee-actions{
+width:100%;
+justify-content:space-between;
+flex-wrap:wrap
+}
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="app">
+
+<aside class="sidebar">
+
+<div class="logo">
+<div class="logo-icon"></div>
+
+<div class="logo-text">
+<b>NikhS Store</b>
+<small>Buy Latest iPhone's</small>
+</div>
+</div>
+
+<div class="nav-title">BUSINESS</div>
+
+<button class="nav active" onclick="scrollToSection('dashboard')">
+<span class="nav-icon">⌂</span>
+<span>Dashboard</span>
+</button>
+
+<button class="nav" onclick="scrollToSection('productsSection')">
+<span class="nav-icon">▣</span>
+<span>Products</span>
+</button>
+
+<button class="nav" onclick="scrollToSection('inventorySection')">
+<span class="nav-icon">▤</span>
+<span>Inventory</span>
+</button>
+
+<button class="nav" onclick="scrollToSection('employeeSection')">
+<span class="nav-icon">♙</span>
+<span>Employees</span>
+</button>
+
+<button class="nav" onclick="scrollToSection('monthlySection')">
+<span class="nav-icon">◷</span>
+<span>Monthly Reports</span>
+</button>
+
+<button class="nav" onclick="scrollToSection('transactionsSection')">
+<span class="nav-icon">₹</span>
+<span>Transactions</span>
+</button>
+
+<div class="nav-title">SYSTEM</div>
+
+<button class="nav" onclick="openReset()">
+<span class="nav-icon">↻</span>
+<span>Reset Business</span>
+</button>
+
+<div class="sidebar-status">
+
+<div class="status-top">
+<span>Store Status</span>
+<span class="status-dot" id="sideDot"></span>
+</div>
+
+<div class="status-text" id="sideStatus">
+Store is OFF
+</div>
+
+</div>
+
+</aside>
+
+<main class="main" id="dashboard">
+
+<div class="topbar">
+
+<div class="page-title">
+<h1>Business Dashboard</h1>
+<p>Manage your virtual Apple retail business.</p>
+</div>
+
+<div class="top-actions">
+
+<div class="date-badge">
+<b id="monthLabel">January 2026</b>
+· Day
+<b id="dayLabel">1</b>
+/30
+</div>
+
+<button class="btn btn-black" onclick="manualNextDay()">
+Next Day
+</button>
+
+</div>
+
+</div>
+
+<section class="hero">
+
+<div>
+
+<h2>Apple Store</h2>
+
+<p>Inventory • Sales • Employees • Monthly Accounting</p>
+
+<div class="hero-info">
+<span class="hero-dot" id="heroDot"></span>
+<span id="heroStatus">Store is OFF</span>
+</div>
+
+</div>
+
+<!-- FIXED STORE BUTTON -->
+
+<button
+class="store-switch"
+id="storeSwitch"
+type="button"
+onclick="toggleStore()"
+aria-label="Toggle Store"
+
+>
+
+<span></span> </button>
+
+</section>
+
+<section class="stats">
+
+<div class="stat">
+<small>AVAILABLE BALANCE</small>
+<h3 id="cashStat">₹5,00,000</h3>
+<p>Actual business cash</p>
+</div>
+
+<div class="stat">
+<small>MONTH PROFIT</small>
+<h3 id="monthProfitStat">₹0</h3>
+<p>Current month</p>
+</div>
+
+<div class="stat">
+<small>AVAILABLE STOCK</small>
+<h3 id="availableStockStat">0</h3>
+<p>Physical pieces</p>
+</div>
+
+<div class="stat">
+<small>PRODUCT TYPES</small>
+<h3 id="productTypesStat">0</h3>
+<p>Different products</p>
+</div>
+
+<div class="stat">
+<small>MONTH SALES</small>
+<h3 id="monthSalesStat">₹0</h3>
+<p>Sales revenue</p>
+</div>
+
+<div class="stat">
+<small>MONTH UNITS SOLD</small>
+<h3 id="monthUnitsStat">0</h3>
+<p>Pieces sold</p>
+</div>
+
+</section>
+
+<section class="grid">
+
+<div class="card">
+
+<div class="card-head">
+
+<div>
+<h3>Live Sales</h3>
+<p>Products automatically selling while store is ON.</p>
+</div>
+
+<div class="date-badge" id="liveBadge">
+OFFLINE
+</div>
+
+</div>
+
+<div class="live-feed" id="liveFeed">
+
+<div class="empty">
+Turn ON the store to start selling.
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="card-head">
+
+<div>
+<h3>Store Overview</h3>
+<p>Current business state.</p>
+</div>
+
+</div>
+
+<div>
+
+<div class="overview-row">
+<span>Store</span>
+<b id="overviewStore">OFF</b>
+</div>
+
+<div class="overview-row">
+<span>Current Month</span>
+<b id="overviewMonth">January</b>
+</div>
+
+<div class="overview-row">
+<span>Current Day</span>
+<b id="overviewDay">1 / 30</b>
+</div>
+
+<div class="overview-row">
+<span>Available Stock</span>
+<b id="overviewStock">0</b>
+</div>
+
+<div class="overview-row">
+<span>Product Types</span>
+<b id="overviewTypes">0</b>
+</div>
+
+<div class="overview-row">
+<span>Employees</span>
+<b id="overviewEmployees">20</b>
+</div>
+
+<div class="overview-row">
+<span>Monthly Payroll Reference</span>
+<b id="overviewPayroll">₹50,00,000</b>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="card" id="productsSection">
+
+<div class="card-head">
+
+<div>
+<h3>Add Product</h3>
+<p>Set your own buying cost, selling price and stock.</p>
+</div>
+
+</div>
+
+<div class="form-grid">
+
+<div class="field">
+<label>Product Name</label>
+<input id="productName" placeholder="iPhone 17 Pro Max">
+</div>
+
+<div class="field">
+<label>Category</label>
+
+<select id="productCategory">
+<option>iPhone</option>
+<option>iPad</option>
+<option>Mac</option>
+<option>Apple Watch</option>
+<option>AirPods</option>
+<option>Accessories</option>
+</select>
+
+</div>
+
+<div class="field">
+<label>Purchase Cost / Piece</label>
+<input id="productCost" type="number" placeholder="50000">
+</div>
+
+<div class="field">
+<label>Selling Price / Piece</label>
+<input id="productSell" type="number" placeholder="65000">
+</div>
+
+<div class="field">
+<label>Initial Stock</label>
+<input id="productStock" type="number" min="0" value="0">
+</div>
+
+<div class="field">
+<label>Sale Interval (Seconds)</label>
+<input
+id="productInterval"
+type="number"
+min="0.1"
+step="0.1"
+value="0.1"
+>
+</div>
+
+<div class="field full">
+
+<label>Product Image</label>
+
+<input
+id="productImage"
+type="file"
+accept="image/*"
+onchange="previewProductImage(event)"
+
+>
+
+</div>
+
+<div class="image-preview full" id="imagePreview">
+Product image preview
+</div>
+
+<div class="form-bottom">
+
+<button class="btn btn-black" onclick="addProduct()">
++ Add Product
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="card" id="productsListSection">
+
+<div class="card-head">
+
+<div>
+<h3>Product Inventory</h3>
+<p>Available means actual physical pieces in your store.</p>
+</div>
+
+</div>
+
+<div class="product-grid" id="productGrid"></div>
+
+</section>
+
+<section class="card" id="inventorySection">
+
+<div class="card-head">
+
+<div>
+<h3>Purchase Inventory</h3>
+<p>Quantity is not restricted. Affordable quantity is shown only as information.</p>
+</div>
+
+</div>
+
+<div class="purchase-summary">
+
+<b id="purchaseName">Select Product</b>
+
+<span id="purchaseInfo">
+Product purchase information will appear here.
+</span>
+
+<div class="affordable-info" id="affordableInfo">
+Select a product to see how many units you can afford.
+</div>
+
+</div>
+
+<div class="purchase-box">
+
+<div class="field">
+
+<label>Product</label>
+
+<select id="buyProduct" onchange="updatePurchaseSummary()"></select>
+
+</div>
+
+<div class="field">
+
+<label>Quantity</label>
+
+<input
+id="buyQuantity"
+type="number"
+value="1"
+min="1"
+oninput="updatePurchaseSummary()"
+
+>
+
+</div>
+
+<button class="btn btn-blue" onclick="buyStock()">
+Buy Stock
+</button>
+
+</div>
+
+</section>
+
+<section class="card" id="employeeSection">
+
+<div class="card-head">
+
+<div>
+<h3>Employees</h3>
+<p>Salary is automatically processed when Day 30 ends.</p>
+</div>
+
+</div>
+
+<div id="salaryBanner"></div>
+
+<div class="employee-form">
+
+<input
+id="employeeName"
+placeholder="Employee name"
+
+>
+
+<select id="employeeRole">
+
+<option>Store Manager</option>
+<option>Sales Executive</option>
+<option>Cashier</option>
+<option>Technician</option>
+<option>Security</option>
+<option>Cleaner</option>
+
+</select>
+
+<input
+id="employeeSalary"
+type="number"
+placeholder="Monthly salary"
+
+>
+
+<button class="btn btn-black" onclick="hireEmployee()">
++ Hire
+</button>
+
+</div>
+
+<div id="employeeList"></div>
+
+</section>
+
+<section class="card">
+
+<div class="card-head">
+
+<div>
+<h3>Business Money</h3>
+<p>Available balance is the actual cash currently available to your business.</p>
+</div>
+
+</div>
+
+<div class="cash-panel">
+
+<div class="cash-main">
+
+<small>AVAILABLE BALANCE</small>
+
+<h2 id="cashMain">₹5,00,000</h2>
+
+<div class="withdraw-box">
+
+<input
+id="withdrawAmount"
+type="number"
+placeholder="Withdrawal amount"
+
+>
+
+<button
+class="btn btn-black"
+style="background:#fff;color:#111"
+onclick="withdrawMoney()"
+
+>
+
+Withdraw </button>
+
+</div>
+
+</div>
+
+<div class="business-value">
+
+<small>BUSINESS VALUE</small>
+
+<h2 id="businessValue">₹5,00,000</h2>
+
+<p style="margin-top:8px;color:#737983;font-size:10px;line-height:1.6">
+Available cash + current inventory purchase value.
+This shows the value still inside the business.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="card" id="monthlySection">
+
+<div class="card-head">
+
+<div>
+<h3>Monthly Business Report</h3>
+<p>Every month is stored separately.</p>
+</div>
+
+</div>
+
+<div class="month-grid">
+
+<div class="month-card">
+<small>THIS MONTH SALES</small>
+<b id="reportSales">₹0</b>
+</div>
+
+<div class="month-card">
+<small>THIS MONTH PROFIT</small>
+<b id="reportProfit">₹0</b>
+</div>
+
+<div class="month-card">
+<small>STOCK PURCHASED</small>
+<b id="reportPurchases">₹0</b>
+</div>
+
+<div class="month-card">
+<small>SALARY PAID</small>
+<b id="reportSalary">₹0</b>
+</div>
+
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Month</th>
+<th>Sales</th>
+<th>Product Cost</th>
+<th>Gross Profit</th>
+<th>Salary</th>
+<th>Net Profit</th>
+<th>Units</th>
+</tr>
+
+</thead>
+
+<tbody id="monthlyBody"></tbody>
+
+</table>
+
+</div>
+
+</section>
+
+<section class="card" id="transactionsSection">
+
+<div class="card-head">
+
+<div>
+<h3>Transaction History</h3>
+<p>Every sale, purchase, salary and withdrawal is recorded.</p>
+</div>
+
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Date</th>
+<th>Type</th>
+<th>Description</th>
+<th>Cash Change</th>
+<th>Profit</th>
+</tr>
+
+</thead>
+
+<tbody id="transactionBody"></tbody>
+
+</table>
+
+</div>
+
+</section>
+
+</main>
+</div>
+
+<div class="modal-bg" id="resetModal">
+
+<div class="modal">
+
+<h2>Reset Entire Business?</h2>
+
+<p>
+This will delete all products, inventory, employees,
+money, monthly reports and transaction history.
+Starting balance will return to ₹5,00,000 and the
+default 20 employees will be restored.
+</p>
+
+<div class="modal-buttons">
+
+<button class="btn btn-light" onclick="closeReset()">
+Cancel
+</button>
+
+<button class="btn btn-black" onclick="resetBusiness()">
+Reset Business
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+const STORAGE_KEY = "APPLE_STORE_BUSINESS_SIMULATOR_V9";
+
+const DAY_DURATION_SECONDS = 15;
+
+const SALE_ENGINE_MS = 100;
+
+const DAYS_PER_MONTH = 30;
+
+const START_YEAR = 2026;
+
+const START_MONTH = 0;
+
+const monthNames = [
+"January",
+"February",
+"March",
+"April",
+"May",
+"June",
+"July",
+"August",
+"September",
+"October",
+"November",
+"December"
+];
+
+
+/* =========================================================
+   DEFAULT 20 EMPLOYEES
+========================================================= */
+
+const DEFAULT_EMPLOYEES = [
+
+{
+name:"Aman Verma",
+role:"Store Manager",
+salary:500000
+},
+
+{
+name:"Rohit Yadav",
+role:"Sales Executive",
+salary:400000
+},
+
+{
+name:"Vikas Sharma",
+role:"Sales Executive",
+salary:400000
+},
+
+{
+name:"Arjun Singh",
+role:"Sales Executive",
+salary:400000
+},
+
+{
+name:"Rahul Kumar",
+role:"Cashier",
+salary:350000
+},
+
+{
+name:"Mohit Patel",
+role:"Cashier",
+salary:350000
+},
+
+{
+name:"Karan Mehta",
+role:"Technician",
+salary:300000
+},
+
+{
+name:"Aditya Gupta",
+role:"Technician",
+salary:300000
+},
+
+{
+name:"Ankit Verma",
+role:"Technician",
+salary:300000
+},
+
+{
+name:"Saurabh Mishra",
+role:"Security",
+salary:100000
+},
+
+{
+name:"Nitin Sharma",
+role:"Security",
+salary:100000
+},
+
+{
+name:"Abhishek Jain",
+role:"Security",
+salary:100000
+},
+
+{
+name:"Deepak Yadav",
+role:"Security",
+salary:100000
+},
+
+{
+name:"Akash Tiwari",
+role:"Cleaner",
+salary:100000
+},
+
+{
+name:"Vivek Singh",
+role:"Cleaner",
+salary:100000
+},
+
+{
+name:"Sumit Gupta",
+role:"Cleaner",
+salary:100000
+},
+
+{
+name:"Manish Kumar",
+role:"Cleaner",
+salary:100000
+},
+
+{
+name:"Harsh Verma",
+role:"Cleaner",
+salary:100000
+},
+
+{
+name:"Rishabh Agarwal",
+role:"Sales Executive",
+salary:400000
+},
+
+{
+name:"Ayush Srivastava",
+role:"Sales Executive",
+salary:400000
+}
+
+];
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+function createDefaultEmployees(){
+
+return DEFAULT_EMPLOYEES.map((employee,index) => ({
+
+id:
+Date.now() +
+index +
+Math.floor(Math.random()*10000),
+
+name:employee.name,
+
+role:employee.role,
+
+salary:employee.salary,
+
+salaryPaidFor:null,
+
+pendingSalaryFor:null,
+
+pendingSalaryAmount:0
+
+}));
+
+}
+
+function createInitialState(){
+
+return {
+
+cash:500000,
+
+year:START_YEAR,
+
+month:START_MONTH,
+
+day:1,
+
+storeOpen:false,
+
+totalUnitsSold:0,
+
+totalSales:0,
+
+totalGrossProfit:0,
+
+totalSalaryPaid:0,
+
+totalWithdrawn:0,
+
+totalPurchases:0,
+
+products:[],
+
+employees:createDefaultEmployees(),
+
+transactions:[],
+
+monthlyReports:[],
+
+liveSales:[],
+
+defaultsLoaded:true
+
+};
+
+}
+
+let state = createInitialState();
+
+let selectedImage = "";
+
+let salesTimer = null;
+
+let dayTimer = null;
+
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+function saveState(){
+
+try{
+
+localStorage.setItem(
+STORAGE_KEY,
+JSON.stringify(state)
+);
+
+}catch(error){
+
+console.error(error);
+
+showToast(
+"Storage full. Try smaller product images."
+);
+
+}
+
+}
+
+
+function loadState(){
+
+const saved =
+localStorage.getItem(STORAGE_KEY);
+
+if(saved){
+
+try{
+
+const loaded =
+JSON.parse(saved);
+
+state = {
+...createInitialState(),
+...loaded
+};
+
+state.products =
+Array.isArray(state.products)
+? state.products
+: [];
+
+state.employees =
+Array.isArray(state.employees)
+? state.employees
+: [];
+
+state.transactions =
+Array.isArray(state.transactions)
+? state.transactions
+: [];
+
+state.monthlyReports =
+Array.isArray(state.monthlyReports)
+? state.monthlyReports
+: [];
+
+state.liveSales =
+Array.isArray(state.liveSales)
+? state.liveSales
+: [];
+
+
+/* Old employee compatibility */
+
+state.employees =
+state.employees.map(employee => ({
+
+...employee,
+
+salaryPaidFor:
+employee.salaryPaidFor || null,
+
+pendingSalaryFor:
+employee.pendingSalaryFor || null,
+
+pendingSalaryAmount:
+Number(employee.pendingSalaryAmount || 0)
+
+}));
+
+
+/* Old product compatibility */
+
+state.products =
+state.products.map(product => ({
+
+...product,
+
+interval:
+Math.max(
+0.1,
+Number(product.interval || 0.1)
+),
+
+lastSale:
+Number(product.lastSale || 0)
+
+}));
+
+
+/*
+   If this is an old V9 state with no employee list,
+   restore the predefined employees.
+*/
+
+if(state.employees.length === 0){
+
+state.employees =
+createDefaultEmployees();
+
+}
+
+
+}catch(error){
+
+console.error(error);
+
+state =
+createInitialState();
+
+}
+
+}
+
+getCurrentMonthReport();
+
+renderAll();
+
+if(state.storeOpen){
+
+startSales();
+
+}
+
+startDayClock();
+
+}
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function money(value){
+
+return "₹" +
+Number(value || 0).toLocaleString(
+"en-IN",
+{
+maximumFractionDigits:0
+}
+);
+
+}
+
+
+function escapeHTML(value){
+
+return String(value ?? "")
+
+.replaceAll("&","&amp;")
+
+.replaceAll("<","&lt;")
+
+.replaceAll(">","&gt;")
+
+.replaceAll('"',"&quot;")
+
+.replaceAll("'","&#039;");
+
+}
+
+
+function getAvailableStock(){
+
+return state.products.reduce(
+
+(total,product) =>
+total +
+Number(product.stock || 0),
+
+0
+
+);
+
+}
+
+
+function getInventoryValue(){
+
+return state.products.reduce(
+
+(total,product) =>
+total +
+Number(product.stock || 0) *
+Number(product.cost || 0),
+
+0
+
+);
+
+}
+
+
+function getCurrentMonthData(){
+
+return {
+
+sales:0,
+
+productCost:0,
+
+grossProfit:0,
+
+salary:0,
+
+netProfit:0,
+
+units:0,
+
+purchases:0,
+
+withdrawals:0
+
+};
+
+}
+
+
+function getMonthKey(){
+
+return state.year + "-" + state.month;
+
+}
+
+
+function getCurrentMonthReport(){
+
+let report =
+state.monthlyReports.find(
+r => r.key === getMonthKey()
+);
+
+if(!report){
+
+report = {
+
+key:getMonthKey(),
+
+year:state.year,
+
+month:state.month,
+
+...getCurrentMonthData()
+
+};
+
+state.monthlyReports.push(report);
+
+}
+
+
+report.sales =
+Number(report.sales || 0);
+
+report.productCost =
+Number(report.productCost || 0);
+
+report.grossProfit =
+Number(report.grossProfit || 0);
+
+report.salary =
+Number(report.salary || 0);
+
+report.netProfit =
+Number(report.netProfit || 0);
+
+report.units =
+Number(report.units || 0);
+
+report.purchases =
+Number(report.purchases || 0);
+
+report.withdrawals =
+Number(report.withdrawals || 0);
+
+return report;
+
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+function previewProductImage(event){
+
+const file =
+event.target.files[0];
+
+if(!file)return;
+
+const reader =
+new FileReader();
+
+reader.onload =
+function(e){
+
+selectedImage =
+e.target.result;
+
+document.getElementById(
+"imagePreview"
+).innerHTML =
+`<img src="${selectedImage}" alt="Product">`;
+
+};
+
+reader.readAsDataURL(file);
+
+}
+
+
+/* =========================================================
+   PRODUCTS
+========================================================= */
+
+function addProduct(){
+
+const name =
+document.getElementById(
+"productName"
+).value.trim();
+
+const category =
+document.getElementById(
+"productCategory"
+).value;
+
+const cost =
+Number(
+document.getElementById(
+"productCost"
+).value
+);
+
+const sell =
+Number(
+document.getElementById(
+"productSell"
+).value
+);
+
+const stock =
+Number(
+document.getElementById(
+"productStock"
+).value
+) || 0;
+
+const interval =
+Number(
+document.getElementById(
+"productInterval"
+).value
+) || 0.1;
+
+
+if(!name){
+
+showToast(
+"Product name required"
+);
+
+return;
+
+}
+
+if(cost <= 0){
+
+showToast(
+"Enter valid purchase cost"
+);
+
+return;
+
+}
+
+if(sell <= 0){
+
+showToast(
+"Enter valid selling price"
+);
+
+return;
+
+}
+
+if(stock < 0){
+
+showToast(
+"Invalid stock"
+);
+
+return;
+
+}
+
+if(interval < 0.1){
+
+showToast(
+"Minimum sale interval is 0.1 second"
+);
+
+return;
+
+}
+
+
+const initialCost =
+cost * stock;
+
+if(initialCost > state.cash){
+
+showToast(
+"Not enough cash for initial stock"
+);
+
+return;
+
+}
+
+
+state.cash -=
+initialCost;
+
+
+const product = {
+
+id:
+Date.now() +
+Math.floor(
+Math.random()*10000
+),
+
+name:name,
+
+category:category,
+
+cost:cost,
+
+sell:sell,
+
+stock:stock,
+
+initialStock:stock,
+
+interval:
+Math.max(0.1,interval),
+
+image:selectedImage,
+
+active:true,
+
+sold:0,
+
+revenue:0,
+
+grossProfit:0,
+
+lastSale:0
+
+};
+
+
+state.products.push(product);
+
+
+if(stock > 0){
+
+state.totalPurchases +=
+initialCost;
+
+const report =
+getCurrentMonthReport();
+
+report.purchases +=
+initialCost;
+
+addTransaction(
+
+"PURCHASE",
+
+"Initial stock: " +
+name +
+" × " +
+stock,
+
+-initialCost,
+
+0
+
+);
+
+}
+
+
+resetProductForm();
+
+saveState();
+
+renderAll();
+
+showToast(
+name +
+" added successfully"
+);
+
+}
+
+
+function resetProductForm(){
+
+document.getElementById(
+"productName"
+).value = "";
+
+document.getElementById(
+"productCost"
+).value = "";
+
+document.getElementById(
+"productSell"
+).value = "";
+
+document.getElementById(
+"productStock"
+).value = "0";
+
+document.getElementById(
+"productInterval"
+).value = "0.1";
+
+document.getElementById(
+"productImage"
+).value = "";
+
+selectedImage = "";
+
+document.getElementById(
+"imagePreview"
+).textContent =
+"Product image preview";
+
+}
+
+
+function deleteProduct(id){
+
+const product =
+state.products.find(
+p => p.id === id
+);
+
+if(!product)return;
+
+const confirmDelete =
+confirm(
+"Delete " +
+product.name +
+"? Current stock will also be removed."
+);
+
+if(!confirmDelete)return;
+
+state.products =
+state.products.filter(
+p => p.id !== id
+);
+
+saveState();
+
+renderAll();
+
+showToast(
+product.name +
+" deleted"
+);
+
+}
+
+
+function toggleProduct(id){
+
+const product =
+state.products.find(
+p => p.id === id
+);
+
+if(!product)return;
+
+product.active =
+!product.active;
+
+saveState();
+
+renderAll();
+
+showToast(
+
+product.active
+? product.name + " enabled"
+: product.name + " disabled"
+
+);
+
+}
+
+
+/* =========================================================
+   PURCHASE SUMMARY
+========================================================= */
+
+function updatePurchaseSummary(){
+
+const id =
+Number(
+document.getElementById(
+"buyProduct"
+).value
+);
+
+const qty =
+Number(
+document.getElementById(
+"buyQuantity"
+).value
+) || 0;
+
+const product =
+state.products.find(
+p => p.id === id
+);
+
+const info =
+document.getElementById(
+"purchaseInfo"
+);
+
+const affordableBox =
+document.getElementById(
+"affordableInfo"
+);
+
+
+if(!product){
+
+document.getElementById(
+"purchaseName"
+).textContent =
+"Select Product";
+
+info.textContent =
+"Product purchase information will appear here.";
+
+affordableBox.className =
+"affordable-info";
+
+affordableBox.textContent =
+"Select a product to see how many units you can afford.";
+
+return;
+
+}
+
+
+const affordableUnits =
+Math.floor(
+state.cash /
+product.cost
+);
+
+const total =
+product.cost *
+qty;
+
+
+document.getElementById(
+"purchaseName"
+).textContent =
+product.name;
+
+info.textContent =
+"Cost " +
+money(product.cost) +
+" / piece · Quantity " +
+qty +
+" · Total " +
+money(total) +
+" · Current stock " +
+product.stock;
+
+
+if(affordableUnits <= 0){
+
+affordableBox.className =
+"affordable-info warning";
+
+affordableBox.textContent =
+"⚠ Balance " +
+money(state.cash) +
+" — You can afford 0 units. Balance is insufficient for 1 unit.";
+
+}
+
+else if(qty > affordableUnits){
+
+affordableBox.className =
+"affordable-info warning";
+
+affordableBox.textContent =
+"⚠ Balance insufficient — You can afford only " +
+affordableUnits +
+" units with your current balance.";
+
+}
+
+else{
+
+affordableBox.className =
+"affordable-info";
+
+affordableBox.textContent =
+"✓ You can afford " +
+affordableUnits +
+" units with your current balance.";
+
+}
+
+}
+
+
+/* =========================================================
+   BUY STOCK
+========================================================= */
+
+function buyStock(){
+
+const id =
+Number(
+document.getElementById(
+"buyProduct"
+).value
+);
+
+const qty =
+Number(
+document.getElementById(
+"buyQuantity"
+).value
+);
+
+const product =
+state.products.find(
+p => p.id === id
+);
+
+
+if(!product){
+
+showToast(
+"Select product"
+);
+
+return;
+
+}
+
+
+if(
+!Number.isFinite(qty) ||
+qty <= 0
+){
+
+showToast(
+"Enter valid quantity"
+);
+
+return;
+
+}
+
+
+const total =
+product.cost *
+qty;
+
+const affordableUnits =
+Math.floor(
+state.cash /
+product.cost
+);
+
+
+if(total > state.cash){
+
+showToast(
+"Balance insufficient — you can afford only " +
+affordableUnits +
+" units."
+);
+
+updatePurchaseSummary();
+
+return;
+
+}
+
+
+state.cash -=
+total;
+
+product.stock +=
+qty;
+
+state.totalPurchases +=
+total;
+
+
+const report =
+getCurrentMonthReport();
+
+report.purchases +=
+total;
+
+
+addTransaction(
+
+"PURCHASE",
+
+product.name +
+" × " +
+qty,
+
+-total,
+
+0
+
+);
+
+
+saveState();
+
+renderAll();
+
+showToast(
+qty +
+" × " +
+product.name +
+" added to inventory"
+);
+
+}
+
+
+function quickBuy(id){
+
+document.getElementById(
+"buyProduct"
+).value = id;
+
+updatePurchaseSummary();
+
+document.getElementById(
+"inventorySection"
+).scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+
+/* =========================================================
+   SALES ENGINE
+========================================================= */
+
+function startSales(){
+
+stopSales();
+
+salesTimer =
+setInterval(
+processAutomaticSale,
+SALE_ENGINE_MS
+);
+
+}
+
+
+function stopSales(){
+
+if(salesTimer){
+
+clearInterval(
+salesTimer
+);
+
+salesTimer = null;
+
+}
+
+}
+
+
+function processAutomaticSale(){
+
+if(!state.storeOpen)return;
+
+const now =
+Date.now();
+
+let changed = false;
+
+
+state.products.forEach(
+
+product => {
+
+if(
+
+product.active !== true ||
+Number(product.stock || 0) <= 0
+
+){
+
+return;
+
+}
+
+
+if(!product.lastSale){
+
+product.lastSale =
+now -
+(
+Math.max(
+0.1,
+Number(product.interval || 0.1)
+) * 1000
+);
+
+}
+
+
+const intervalMs =
+Math.max(
+100,
+Number(product.interval || 0.1) * 1000
+);
+
+
+if(
+
+now -
+Number(product.lastSale || 0)
+
+< intervalMs
+
+){
+
+return;
+
+}
+
+
+product.stock -= 1;
+
+product.sold += 1;
+
+product.revenue +=
+product.sell;
+
+
+const grossProfit =
+product.sell -
+product.cost;
+
+product.grossProfit +=
+grossProfit;
+
+product.lastSale =
+now;
+
+
+state.cash +=
+product.sell;
+
+state.totalSales +=
+product.sell;
+
+state.totalUnitsSold +=
+1;
+
+state.totalGrossProfit +=
+grossProfit;
+
+
+const report =
+getCurrentMonthReport();
+
+report.sales +=
+product.sell;
+
+report.productCost +=
+product.cost;
+
+report.grossProfit +=
+grossProfit;
+
+report.netProfit +=
+grossProfit;
+
+report.units +=
+1;
+
+
+addTransaction(
+
+"SALE",
+
+product.name + " × 1",
+
+product.sell,
+
+grossProfit
+
+);
+
+
+state.liveSales.unshift({
+
+id:
+Date.now() +
+Math.random(),
+
+product:product.name,
+
+image:product.image,
+
+price:product.sell,
+
+profit:grossProfit,
+
+time:
+new Date()
+.toLocaleTimeString(
+"en-IN"
+)
+
+});
+
+
+changed = true;
+
+}
+
+);
+
+
+if(!changed)return;
+
+
+state.liveSales =
+state.liveSales.slice(
+0,
+40
+);
+
+
+saveState();
+
+renderAll();
+
+}
+
+
+/* =========================================================
+   STORE ON / OFF
+========================================================= */
+
+function toggleStore(){
+
+state.storeOpen =
+!state.storeOpen;
+
+
+if(state.storeOpen){
+
+const now =
+Date.now();
+
+
+state.products.forEach(
+
+product => {
+
+if(Number(product.stock || 0) > 0){
+
+product.lastSale =
+now -
+(
+Math.max(
+0.1,
+Number(product.interval || 0.1)
+) * 1000
+);
+
+}
+
+});
+
+
+startSales();
+
+showToast(
+"Store OPEN — fast sales started"
+);
+
+}
+else{
+
+stopSales();
+
+showToast(
+"Store OFF — sales stopped"
+);
+
+}
+
+
+saveState();
+
+renderStore();
+
+}
+
+
+/* =========================================================
+   STORE RENDER
+========================================================= */
+
+function renderStore(){
+
+const switcher =
+document.getElementById(
+"storeSwitch"
+);
+
+const heroDot =
+document.getElementById(
+"heroDot"
+);
+
+const sideDot =
+document.getElementById(
+"sideDot"
+);
+
+const heroStatus =
+document.getElementById(
+"heroStatus"
+);
+
+const sideStatus =
+document.getElementById(
+"sideStatus"
+);
+
+const liveBadge =
+document.getElementById(
+"liveBadge"
+);
+
+const overview =
+document.getElementById(
+"overviewStore"
+);
+
+
+if(state.storeOpen){
+
+switcher.classList.add("on");
+
+heroDot.classList.add("on");
+
+sideDot.classList.add("on");
+
+heroStatus.textContent =
+"Store is OPEN — products are selling";
+
+sideStatus.textContent =
+"Store is running";
+
+liveBadge.textContent =
+"LIVE";
+
+overview.textContent =
+"OPEN";
+
+}
+else{
+
+switcher.classList.remove("on");
+
+heroDot.classList.remove("on");
+
+sideDot.classList.remove("on");
+
+heroStatus.textContent =
+"Store is OFF";
+
+sideStatus.textContent =
+"Store is OFF";
+
+liveBadge.textContent =
+"OFFLINE";
+
+overview.textContent =
+"OFF";
+
+}
+
+}
+
+
+/* =========================================================
+   DAY CLOCK
+========================================================= */
+
+function startDayClock(){
+
+if(dayTimer){
+
+clearInterval(
+dayTimer
+);
+
+}
+
+dayTimer =
+setInterval(
+automaticDayChange,
+DAY_DURATION_SECONDS * 1000
+);
+
+}
+
+
+function automaticDayChange(){
+
+if(state.day < DAYS_PER_MONTH){
+
+state.day += 1;
+
+saveState();
+
+renderAll();
+
+showToast(
+"New day started — Day " +
+state.day
+);
+
+return;
+
+}
+
+
+/* DAY 30 FINISHED */
+
+const salaryResult =
+autoPayMonthEndSalaries();
+
+
+const endedMonth =
+monthNames[state.month] +
+" " +
+state.year;
+
+
+state.day = 1;
+
+state.month += 1;
+
+
+if(state.month > 11){
+
+state.month = 0;
+
+state.year += 1;
+
+}
+
+
+getCurrentMonthReport();
+
+saveState();
+
+renderAll();
+
+
+if(salaryResult.paid > 0){
+
+showToast(
+
+endedMonth +
+" ended — " +
+money(salaryResult.paid) +
+" salary automatically paid"
+
+);
+
+}
+
+else if(salaryResult.pending > 0){
+
+showToast(
+
+endedMonth +
+" ended — insufficient cash, salary pending"
+
+);
+
+}
+
+else{
+
+showToast(
+endedMonth +
+" ended — next month started"
+);
+
+}
+
+}
+
+
+function manualNextDay(){
+
+automaticDayChange();
+
+}
+
+
+/* =========================================================
+   AUTOMATIC SALARY
+========================================================= */
+
+function autoPayMonthEndSalaries(){
+
+const endedMonthKey =
+getMonthKey();
+
+let totalPaid = 0;
+
+let pendingCount = 0;
+
+
+state.employees.forEach(
+
+employee => {
+
+const salary =
+Number(employee.salary || 0);
+
+if(salary <= 0)return;
+
+
+let dueMonthKey =
+employee.pendingSalaryFor ||
+endedMonthKey;
+
+let dueAmount =
+Number(
+employee.pendingSalaryAmount || 0
+);
+
+
+if(dueAmount <= 0){
+
+dueAmount =
+salary;
+
+}
+
+
+if(
+
+employee.salaryPaidFor ===
+endedMonthKey &&
+!employee.pendingSalaryFor
+
+){
+
+return;
+
+}
+
+
+if(
+
+state.cash >= dueAmount
+
+){
+
+state.cash -=
+dueAmount;
+
+state.totalSalaryPaid +=
+dueAmount;
+
+totalPaid +=
+dueAmount;
+
+
+let salaryReport =
+state.monthlyReports.find(
+
+report =>
+report.key === dueMonthKey
+
+);
+
+
+if(!salaryReport){
+
+const parts =
+dueMonthKey.split("-");
+
+salaryReport = {
+
+key:dueMonthKey,
+
+year:Number(parts[0]),
+
+month:Number(parts[1]),
+
+...getCurrentMonthData()
+
+};
+
+state.monthlyReports.push(
+salaryReport
+);
+
+}
+
+
+salaryReport.salary =
+Number(
+salaryReport.salary || 0
+) +
+dueAmount;
+
+
+salaryReport.netProfit =
+Number(
+salaryReport.netProfit || 0
+) -
+dueAmount;
+
+
+if(
+dueMonthKey === endedMonthKey
+){
+
+employee.salaryPaidFor =
+endedMonthKey;
+
+}
+
+
+employee.pendingSalaryFor =
+null;
+
+employee.pendingSalaryAmount =
+0;
+
+
+const parts =
+dueMonthKey.split("-");
+
+const salaryMonth =
+monthNames[
+Number(parts[1])
+];
+
+const salaryYear =
+Number(parts[0]);
+
+
+addTransaction(
+
+"SALARY",
+
+"Automatic salary paid to " +
+employee.name +
+" for " +
+salaryMonth +
+" " +
+salaryYear,
+
+-dueAmount,
+
+-dueAmount
+
+);
+
+}
+
+else{
+
+employee.pendingSalaryFor =
+dueMonthKey;
+
+employee.pendingSalaryAmount =
+dueAmount;
+
+pendingCount++;
+
+}
+
+}
+
+);
+
+
+return {
+
+paid:totalPaid,
+
+pending:pendingCount
+
+};
+
+}
+
+
+/* =========================================================
+   EMPLOYEES
+========================================================= */
+
+function getMonthlyPayroll(){
+
+return state.employees.reduce(
+
+(total,employee) =>
+total +
+Number(
+employee.salary || 0
+),
+
+0
+
+);
+
+
+}
+
+
+function hireEmployee(){
+
+const name =
+document.getElementById(
+"employeeName"
+).value.trim();
+
+const role =
+document.getElementById(
+"employeeRole"
+).value;
+
+const salary =
+Number(
+document.getElementById(
+"employeeSalary"
+).value
+);
+
+
+if(!name){
+
+showToast(
+"Employee name required"
+);
+
+return;
+
+}
+
+
+if(salary <= 0){
+
+showToast(
+"Enter valid monthly salary"
+);
+
+return;
+
+}
+
+
+state.employees.push({
+
+id:
+Date.now() +
+Math.floor(
+Math.random()*10000
+),
+
+name:name,
+
+role:role,
+
+salary:salary,
+
+salaryPaidFor:null,
+
+pendingSalaryFor:null,
+
+pendingSalaryAmount:0
+
+});
+
+
+document.getElementById(
+"employeeName"
+).value = "";
+
+document.getElementById(
+"employeeSalary"
+).value = "";
+
+
+saveState();
+
+renderAll();
+
+showToast(
+name +
+" hired successfully"
+);
+
+}
+
+
+function fireEmployee(id){
+
+const employee =
+state.employees.find(
+e => e.id === id
+);
+
+if(!employee)return;
+
+
+if(
+!confirm(
+"Remove " +
+employee.name +
+" from business?"
+)
+){
+
+return;
+
+}
+
+
+state.employees =
+state.employees.filter(
+e => e.id !== id
+);
+
+
+saveState();
+
+renderAll();
+
+showToast(
+employee.name +
+" removed"
+);
+
+}
+
+
+/* =========================================================
+   SALARY BANNER
+========================================================= */
+
+function renderSalaryBanner(){
+
+const banner =
+document.getElementById(
+"salaryBanner"
+);
+
+if(!banner)return;
+
+
+const payroll =
+getMonthlyPayroll();
+
+
+const defaultPayroll =
+5000000;
+
+
+const pendingEmployees =
+state.employees.filter(
+
+employee =>
+Number(
+employee.pendingSalaryAmount || 0
+) > 0
+
+);
+
+
+let payrollClass =
+"payroll-exact";
+
+let payrollText =
+"Default payroll is exactly ₹50,00,000/month.";
+
+
+if(payroll === defaultPayroll){
+
+payrollClass =
+"payroll-exact";
+
+payrollText =
+"✓ 20 predefined employees · Total monthly payroll exactly ₹50,00,000";
+
+}
+else{
+
+payrollClass =
+"payroll-warning";
+
+payrollText =
+"Current payroll changed because employees were added or removed.";
+
+}
+
+
+let html = `
+
+<div class="payroll-banner">
+
+<div class="payroll-banner-top">
+
+<div>
+
+<small>ACTIVE EMPLOYEE PAYROLL</small>
+
+<strong>${money(payroll)}</strong>
+
+</div>
+
+<div class="${payrollClass}">
+${payrollText}
+</div>
+
+</div>
+
+</div>
+
+`;
+
+
+if(state.day === DAYS_PER_MONTH){
+
+html += `
+
+<div class="month-end-banner">
+
+🔔 Day 30 — Month End.
+
+All employee salaries will be processed
+automatically when this day ends.
+
+</div>
+
+`;
+
+}
+
+
+if(pendingEmployees.length > 0){
+
+const pendingTotal =
+pendingEmployees.reduce(
+
+(total,employee) =>
+total +
+Number(
+employee.pendingSalaryAmount || 0
+),
+
+0
+
+);
+
+
+html += `
+
+<div class="month-end-banner pending-banner">
+
+⚠ ${pendingEmployees.length}
+employee salary payment(s) are pending
+because business cash was insufficient.
+
+Pending amount: ${money(pendingTotal)}.
+
+They will be attempted automatically again.
+
+</div>
+
+`;
+
+}
+
+
+if(
+state.day !== DAYS_PER_MONTH &&
+pendingEmployees.length === 0
+){
+
+html += `
+
+<div class="month-end-banner normal">
+
+🔒 Salary is automatic.
+
+No manual salary payment is required.
+
+</div>
+
+`;
+
+}
+
+
+banner.innerHTML =
+html;
+
+}
+
+
+/* =========================================================
+   RENDER EMPLOYEES
+========================================================= */
+
+function renderEmployees(){
+
+const box =
+document.getElementById(
+"employeeList"
+);
+
+
+if(
+state.employees.length === 0
+){
+
+box.innerHTML =
+`<div class="empty">
+No employees hired.
+</div>`;
+
+renderSalaryBanner();
+
+return;
+
+}
+
+
+box.innerHTML =
+state.employees.map(
+
+employee => {
+
+const pendingAmount =
+Number(
+employee.pendingSalaryAmount || 0
+);
+
+let statusText = "";
+
+
+if(pendingAmount > 0){
+
+statusText =
+"Pending: " +
+money(pendingAmount) +
+" — automatic retry";
+
+}
+else if(
+
+employee.salaryPaidFor ===
+getMonthKey()
+
+){
+
+statusText =
+"Current month salary paid automatically";
+
+}
+else if(
+
+state.day === DAYS_PER_MONTH
+
+){
+
+statusText =
+"Will be paid automatically at month end";
+
+}
+else{
+
+statusText =
+"Automatic payment at month end";
+
+}
+
+
+return `
+
+<div class="employee">
+
+<div class="employee-left">
+
+<div class="avatar">
+
+${escapeHTML(
+employee.name
+.charAt(0)
+.toUpperCase()
+)}
+
+</div>
+
+<div>
+
+<div class="employee-name">
+
+${escapeHTML(
+employee.name
+)}
+
+</div>
+
+<div class="employee-role">
+
+${escapeHTML(
+employee.role
+)}
+
+</div>
+
+<div class="salary-status">
+
+${statusText}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="employee-actions">
+
+<div class="employee-salary">
+
+Reference:
+${money(
+employee.salary
+)}
+/ month
+
+</div>
+
+<button
+class="btn btn-red"
+style="padding:7px 10px"
+onclick="fireEmployee(${employee.id})"
+>
+×
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+).join("");
+
+
+renderSalaryBanner();
+
+}
+
+
+/* =========================================================
+   WITHDRAW
+========================================================= */
+
+function withdrawMoney(){
+
+const amount =
+Number(
+document.getElementById(
+"withdrawAmount"
+).value
+);
+
+
+if(
+!Number.isFinite(amount) ||
+amount <= 0
+){
+
+showToast(
+"Enter withdrawal amount"
+);
+
+return;
+
+}
+
+
+if(
+amount >
+state.cash
+){
+
+showToast(
+"Insufficient available balance"
+);
+
+return;
+
+}
+
+
+state.cash -=
+amount;
+
+state.totalWithdrawn +=
+amount;
+
+
+const report =
+getCurrentMonthReport();
+
+report.withdrawals +=
+amount;
+
+
+addTransaction(
+
+"WITHDRAW",
+
+"Owner cash withdrawal",
+
+-amount,
+
+0
+
+);
+
+
+document.getElementById(
+"withdrawAmount"
+).value = "";
+
+
+saveState();
+
+renderAll();
+
+showToast(
+money(amount) +
+" withdrawn successfully"
+);
+
+}
+
+
+/* =========================================================
+   TRANSACTIONS
+========================================================= */
+
+function addTransaction(
+
+type,
+
+description,
+
+amount,
+
+profit
+
+){
+
+state.transactions.unshift({
+
+id:
+Date.now() +
+Math.random(),
+
+year:state.year,
+
+month:state.month,
+
+day:state.day,
+
+time:
+new Date()
+.toLocaleTimeString(
+"en-IN"
+),
+
+type:type,
+
+description:description,
+
+amount:amount,
+
+profit:profit
+
+});
+
+
+state.transactions =
+state.transactions.slice(
+0,
+1000
+);
+
+}
+
+
+/* =========================================================
+   RENDER STATS
+========================================================= */
+
+function renderStats(){
+
+const report =
+getCurrentMonthReport();
+
+const availableStock =
+getAvailableStock();
+
+const productTypes =
+state.products.length;
+
+const inventoryValue =
+getInventoryValue();
+
+const businessValue =
+state.cash +
+inventoryValue;
+
+
+document.getElementById(
+"cashStat"
+).textContent =
+money(state.cash);
+
+document.getElementById(
+"cashMain"
+).textContent =
+money(state.cash);
+
+document.getElementById(
+"monthProfitStat"
+).textContent =
+money(report.netProfit);
+
+document.getElementById(
+"availableStockStat"
+).textContent =
+availableStock.toLocaleString(
+"en-IN"
+);
+
+document.getElementById(
+"productTypesStat"
+).textContent =
+productTypes;
+
+document.getElementById(
+"monthSalesStat"
+).textContent =
+money(report.sales);
+
+document.getElementById(
+"monthUnitsStat"
+).textContent =
+report.units;
+
+document.getElementById(
+"businessValue"
+).textContent =
+money(businessValue);
+
+document.getElementById(
+"monthLabel"
+).textContent =
+monthNames[state.month] +
+" " +
+state.year;
+
+document.getElementById(
+"dayLabel"
+).textContent =
+state.day;
+
+document.getElementById(
+"overviewMonth"
+).textContent =
+monthNames[state.month] +
+" " +
+state.year;
+
+document.getElementById(
+"overviewDay"
+).textContent =
+state.day +
+" / " +
+DAYS_PER_MONTH;
+
+document.getElementById(
+"overviewStock"
+).textContent =
+availableStock;
+
+document.getElementById(
+"overviewTypes"
+).textContent =
+productTypes;
+
+document.getElementById(
+"overviewEmployees"
+).textContent =
+state.employees.length;
+
+document.getElementById(
+"overviewPayroll"
+).textContent =
+money(
+getMonthlyPayroll()
+);
+
+document.getElementById(
+"reportSales"
+).textContent =
+money(report.sales);
+
+document.getElementById(
+"reportProfit"
+).textContent =
+money(report.netProfit);
+
+document.getElementById(
+"reportPurchases"
+).textContent =
+money(report.purchases);
+
+document.getElementById(
+"reportSalary"
+).textContent =
+money(report.salary);
+
+}
+
+
+/* =========================================================
+   RENDER PRODUCTS
+========================================================= */
+
+function renderProducts(){
+
+const grid =
+document.getElementById(
+"productGrid"
+);
+
+
+if(
+state.products.length === 0
+){
+
+grid.innerHTML = `
+
+<div
+class="empty"
+style="grid-column:1/-1"
+>
+
+No products added.
+
+Add your first product above.
+
+</div>
+
+`;
+
+renderBuySelect();
+
+return;
+
+}
+
+
+grid.innerHTML =
+state.products.map(
+
+product => {
+
+const profitPerSale =
+product.sell -
+product.cost;
+
+
+return `
+
+<div class="product-card">
+
+${
+product.image
+
+?
+
+`<img
+class="product-image"
+src="${product.image}"
+alt="${escapeHTML(product.name)}"
+>`
+
+:
+
+`<div class="product-image"></div>`
+
+}
+
+<div class="product-body">
+
+<div class="product-name">
+
+${escapeHTML(
+product.name
+)}
+
+</div>
+
+<div class="product-category">
+
+${escapeHTML(
+product.category
+)}
+
+</div>
+
+<div class="product-prices">
+
+<div>
+
+<span>Your Cost</span>
+
+<b>
+${money(product.cost)}
+</b>
+
+</div>
+
+<div>
+
+<span>Your Sell</span>
+
+<b>
+${money(product.sell)}
+</b>
+
+</div>
+
+</div>
+
+<div class="product-stock">
+
+<span>
+Available Stock
+</span>
+
+<b class="${
+product.stock === 0
+? "red-text"
+: ""
+}">
+
+${product.stock}
+
+</b>
+
+</div>
+
+<div class="product-profit">
+
+Profit per sale:
+
+<b class="${
+profitPerSale >= 0
+? "green-text"
+: "red-text"
+}">
+
+${money(
+profitPerSale
+)}
+
+</b>
+
+· Sold:
+
+<b>
+${product.sold}
+</b>
+
+<br>
+
+Sale speed:
+
+<b>
+${Number(product.interval || 0.1).toFixed(1)} sec
+</b>
+
+</div>
+
+<div class="product-actions">
+
+<button
+class="btn-blue"
+onclick="quickBuy(${product.id})"
+>
++ Buy Stock
+</button>
+
+<button
+class="${
+product.active
+? "btn-red"
+: "btn-green"
+}"
+onclick="toggleProduct(${product.id})"
+>
+
+${
+product.active
+? "Disable"
+: "Enable"
+}
+
+</button>
+
+<button
+class="btn-red"
+style="grid-column:1/-1"
+onclick="deleteProduct(${product.id})"
+>
+Delete
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+).join("");
+
+
+renderBuySelect();
+
+}
+
+
+/* =========================================================
+   BUY SELECT
+========================================================= */
+
+function renderBuySelect(){
+
+const select =
+document.getElementById(
+"buyProduct"
+);
+
+
+if(
+state.products.length === 0
+){
+
+select.innerHTML =
+`<option value="">
+No products
+</option>`;
+
+updatePurchaseSummary();
+
+return;
+
+}
+
+
+const currentValue =
+select.value;
+
+
+select.innerHTML =
+state.products.map(
+
+product => `
+
+<option value="${product.id}">
+
+${escapeHTML(
+product.name
+)}
+
+</option>
+
+`
+
+).join("");
+
+
+if(
+
+state.products.some(
+p =>
+String(p.id) ===
+currentValue
+)
+
+){
+
+select.value =
+currentValue;
+
+}
+
+
+updatePurchaseSummary();
+
+}
+
+
+/* =========================================================
+   LIVE FEED
+========================================================= */
+
+function renderLiveFeed(){
+
+const feed =
+document.getElementById(
+"liveFeed"
+);
+
+
+if(
+state.liveSales.length === 0
+){
+
+feed.innerHTML = `
+
+<div class="empty">
+
+${
+state.storeOpen
+
+? "Waiting for product sales..."
+
+: "Turn ON the store to start selling."
+
+}
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+feed.innerHTML =
+state.liveSales.map(
+
+sale => `
+
+<div class="live-sale">
+
+${
+sale.image
+
+?
+
+`<img
+class="sale-image"
+src="${sale.image}"
+>`
+
+:
+
+`<div class="sale-image"></div>`
+
+}
+
+<div class="sale-info">
+
+<b>
+${escapeHTML(
+sale.product
+)}
+</b>
+
+<small>
+
+Sold at
+${escapeHTML(
+sale.time
+)}
+
+· Profit
+${money(
+sale.profit
+)}
+
+</small>
+
+</div>
+
+<div class="sale-money">
+
++${money(
+sale.price
+)}
+
+</div>
+
+</div>
+
+`
+
+).join("");
+
+}
+
+
+/* =========================================================
+   MONTHLY REPORT
+========================================================= */
+
+function renderMonthlyReports(){
+
+const body =
+document.getElementById(
+"monthlyBody"
+);
+
+
+const reports =
+[...state.monthlyReports]
+.sort(
+
+(a,b) =>
+b.year - a.year ||
+b.month - a.month
+
+);
+
+
+if(
+reports.length === 0
+){
+
+body.innerHTML = `
+
+<tr>
+
+<td
+colspan="7"
+class="empty"
+>
+
+No monthly report yet.
+
+</td>
+
+</tr>
+
+`;
+
+return;
+
+}
+
+
+body.innerHTML =
+reports.map(
+
+report => `
+
+<tr>
+
+<td>
+
+<b>
+
+${monthNames[
+report.month
+]}
+
+${report.year}
+
+</b>
+
+</td>
+
+<td>
+${money(report.sales)}
+</td>
+
+<td>
+${money(report.productCost)}
+</td>
+
+<td class="green-text">
+${money(report.grossProfit)}
+</td>
+
+<td class="red-text">
+${money(report.salary)}
+</td>
+
+<td class="${
+report.netProfit >= 0
+? "green-text"
+: "red-text"
+}">
+
+${money(report.netProfit)}
+
+</td>
+
+<td>
+${report.units}
+</td>
+
+</tr>
+
+`
+
+).join("");
+
+}
+
+
+/* =========================================================
+   TRANSACTIONS RENDER
+========================================================= */
+
+function renderTransactions(){
+
+const body =
+document.getElementById(
+"transactionBody"
+);
+
+
+if(
+state.transactions.length === 0
+){
+
+body.innerHTML = `
+
+<tr>
+
+<td
+colspan="5"
+class="empty"
+>
+
+No transactions yet.
+
+</td>
+
+</tr>
+
+`;
+
+return;
+
+}
+
+
+body.innerHTML =
+state.transactions
+.slice(0,300)
+.map(
+
+transaction => `
+
+<tr>
+
+<td>
+
+${transaction.day}
+
+/
+
+${transaction.month + 1}
+
+/
+
+${transaction.year}
+
+·
+
+${escapeHTML(
+transaction.time
+)}
+
+</td>
+
+<td>
+
+<b>
+${escapeHTML(
+transaction.type
+)}
+</b>
+
+</td>
+
+<td>
+
+${escapeHTML(
+transaction.description
+)}
+
+</td>
+
+<td class="${
+transaction.amount >= 0
+? "green-text"
+: "red-text"
+}">
+
+${
+transaction.amount >= 0
+? "+"
+: ""
+}
+
+${money(
+transaction.amount
+)}
+
+</td>
+
+<td class="${
+transaction.profit >= 0
+? "green-text"
+: "red-text"
+}">
+
+${
+transaction.profit >= 0
+? "+"
+: ""
+}
+
+${money(
+transaction.profit
+)}
+
+</td>
+
+</tr>
+
+`
+
+).join("");
+
+}
+
+
+/* =========================================================
+   RENDER ALL
+========================================================= */
+
+function renderAll(){
+
+renderStore();
+
+renderStats();
+
+renderProducts();
+
+renderEmployees();
+
+renderLiveFeed();
+
+renderMonthlyReports();
+
+renderTransactions();
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function scrollToSection(id){
+
+const element =
+document.getElementById(id);
+
+if(element){
+
+element.scrollIntoView({
+
+behavior:"smooth",
+
+block:"start"
+
+});
+
+}
+
+}
+
+
+/* =========================================================
+   RESET
+====================== =================================== */
+
+function openReset(){
+
+document
+.getElementById("resetModal")
+.classList.add("show");
+
+}
+
+
+function closeReset(){
+
+document
+.getElementById("resetModal")
+.classList.remove("show");
+
+}
+
+
+function resetBusiness(){
+
+stopSales();
+
+localStorage.removeItem(
+STORAGE_KEY
+);
+
+
+state =
+createInitialState();
+
+
+selectedImage = "";
+
+
+getCurrentMonthReport();
+
+saveState();
+
+renderAll();
+
+startDayClock();
+
+closeReset();
+
+
+showToast(
+"Business reset successfully — 20 default employees restored"
+);
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer = null;
+
+
+function showToast(message){
+
+const toast =
+document.getElementById(
+"toast"
+);
+
+toast.textContent =
+message;
+
+toast.classList.add(
+"show"
+);
+
+clearTimeout(
+toastTimer
+);
+
+toastTimer =
+setTimeout(
+
+() => {
+
+toast.classList.remove(
+"show"
+);
+
+},
+
+3000
+
+);
+
+}
+
+
+/* =========================================================
+   RESET MODAL OUTSIDE CLICK
+========================================================= */
+
+document.getElementById(
+"resetModal"
+).addEventListener(
+
+"click",
+
+function(event){
+
+if(event.target === this){
+
+closeReset();
+
+}
+
+}
+
+);
+
+
+/* =========================================================
+   START APPLICATION
+========================================================= */
+
+getCurrentMonthReport();
+
+loadState();
+
+</script>
+
+</body>
+</html>
